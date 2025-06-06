@@ -1,0 +1,58 @@
+services:
+  # 🟦 Backend (Spring Boot)
+  moro_backend:
+    build: ./Moro-App
+    networks:
+      - moro-network
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres_db:5432/moro_db
+      DATABASE_USERNAME: test
+      DATABASE_PASSWORD: test
+    depends_on:
+      - postgres_db
+
+  # 🟩 Frontend (React + Vite)
+  frontend:
+    build: ./MoroScan
+    ports:
+      - "3000:80"  # Vite compila a archivos estáticos servidos por Nginx en el puerto 80
+    networks:
+      - moro-network
+    depends_on:
+      - moro_backend
+
+  # 🟨 PostgreSQL
+  postgres_db:
+    image: postgres:16.2-alpine
+    container_name: db-postgres-moro
+    networks:
+      - moro-network
+    restart: always
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: moro_db
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --lc-collate=C --lc-ctype=C'
+    ports:
+      - "5432:5432"
+
+  # 🟥 pgAdmin
+  pgadmin_service:
+    image: dpage/pgadmin4:8.7
+    container_name: pgadmin4_moro
+    networks:
+      - moro-network
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@email.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8081:80"
+    depends_on:
+      - postgres_db
+
+networks:
+  moro-network:
+    driver: bridge

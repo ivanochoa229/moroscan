@@ -1,0 +1,2 @@
+1. Checar el num aleatorio del tipo de primavera
+2. cambie el return del post

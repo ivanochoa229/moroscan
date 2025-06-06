@@ -1,0 +1,25 @@
+.clickable-row {
+  cursor: pointer;
+}
+
+.table-scroll {
+  max-height: auto; /* Ajusta el alto máximo deseado */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.table-scroll thead th {
+  position: sticky;
+  top: 0;
+  background-color: #212529; /* color oscuro para thead */
+  color: white;
+  z-index: 1;
+}
+.tabla-historial {
+  min-width: 1000px;
+  height: 100%;
+}
+
+.backgroundCardHistory {
+  max-width: 1200px;
+}

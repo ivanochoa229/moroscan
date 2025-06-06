@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap");
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.contenido {
+  position: relative;
+}
+h1 h3 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+p {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 17px;
+}
+.height100 {
+  height: 100%;
+}
+
+.backPrincipal {
+  margin: 0;
+  width: 100%;
+  background-color: #537d3d;
+  min-height: 100vh;
+}
+.backgroundCard {
+  background-color: #486832;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 10px 10px 19px -2px rgba(23, 29, 18, 0.75);
+  -webkit-box-shadow: 10px 10px 19px -2px rgba(23, 29, 18, 0.75);
+  -moz-box-shadow: 10px 10px 19px -2px rgba(23, 29, 18, 0.75);
+  margin: 20px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #ffffff;
+}
+
+i{
+    color: #c18963;
+}
+
+.backgroundImages {
+  background-color: #284e0f;
+  box-shadow: 7px 7px 10px -3px rgba(23,29,18,0.75);
+  -webkit-box-shadow: 7px 7px 10px -3px rgba(23,29,18,0.75);
+  -moz-box-shadow: 7px 7px 10px -3px rgba(23,29,18,0.75);
+  
+}
+
+.button1 {
+  padding: 0.5em;
+  padding-left: 1.1em;
+  padding-right: 1.1em;
+  border-radius: 5px;
+  margin-right: 0.5em;
+  border: none;
+  outline: none;
+  transition: 0.4s ease-in-out;
+  background-color: #324621;
+  color: white;
+  
+}
+
+.bi-x-square{
+    color: #ffffff;
+}
+
+.button1:hover {
+  background-color: #171d12;
+  color: white;
+}
+
+
