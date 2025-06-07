@@ -15,26 +15,23 @@ const SimulatorForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://18.216.227.102:8080";
 
+ const onSubmit = async (data) => {
+  try {
+    setLoading(true);
+    const response = await axios.post(`${API_BASE_URL}/production`, {  // ✅ URL completa
+      quantity_plots: data.quantity_plots
+    });
 
-  const onSubmit = async (data) => {
-    try {
-      setLoading(true); // 🔄 Mostrar loader
-      const response = await axios.post("/production", {
-        quantity_plots: data.quantity_plots,
-      });
-
-      const simulationId = response.data.id_production;
-
-      // ⏱️ Esperar 3 segundos antes de redirigir
-      setTimeout(() => {
-        navigate("/simulation/" + simulationId);
-      }, 1200);
-    } catch (error) {
-      console.error("Error al enviar los datos:", error);
-      setLoading(false); // ❌ Ocultar loader si hay error
-    }
-  };
+    const simulationId = response.data.id_production;
+    setTimeout(() => navigate("/simulation/" + simulationId), 1200);
+    
+  } catch (error) {
+    console.error("Error:", error);
+    setLoading(false);
+  }
+};
 
   return (
     <Container className=" py-5 d-flex align-items-center justify-content-center vh-100">

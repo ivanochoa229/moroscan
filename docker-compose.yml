@@ -1,27 +1,40 @@
+version: '3.8'
+
 services:
   # 🟦 Backend (Spring Boot)
   moro_backend:
     build: ./Moro-App
+    container_name: moro_backend
     networks:
       - moro-network
     ports:
       - "8080:8080"
     environment:
-      DATABASE_URL: jdbc:postgresql://postgres_db:5432/moro_db
-      DATABASE_USERNAME: test
-      DATABASE_PASSWORD: test
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/moro_db
+      SPRING_DATASOURCE_USERNAME: test
+      SPRING_DATASOURCE_PASSWORD: test
+      SPRING_PROFILES_ACTIVE: prod
     depends_on:
       - postgres_db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   # 🟩 Frontend (React + Vite)
   frontend:
     build: ./MoroScan
+    container_name: moro_frontend
     ports:
-      - "3000:80"  # Vite compila a archivos estáticos servidos por Nginx en el puerto 80
+      - "80:80"  # Cambiado a puerto 80 estándar para producción
     networks:
       - moro-network
     depends_on:
-      - moro_backend
+      moro_backend:
+        condition: service_healthy
+    environment:
+      - VITE_API_BASE_URL=http://moro_backend:8080
 
   # 🟨 PostgreSQL
   postgres_db:
@@ -35,10 +48,15 @@ services:
       POSTGRES_PASSWORD: test
       POSTGRES_DB: moro_db
       POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --lc-collate=C --lc-ctype=C'
-    ports:
-      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test -d moro_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
-  # 🟥 pgAdmin
+  # 🟥 pgAdmin (opcional para producción)
   pgadmin_service:
     image: dpage/pgadmin4:8.7
     container_name: pgadmin4_moro
@@ -56,3 +74,6 @@ services:
 networks:
   moro-network:
     driver: bridge
+
+volumes:
+  postgres_data:

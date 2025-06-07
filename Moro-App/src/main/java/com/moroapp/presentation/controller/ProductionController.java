@@ -10,7 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/production")
-@CrossOrigin(origins = "http://18.216.227.102:3000/")
+@CrossOrigin(origins = {
+    "http://18.216.227.102",
+    "http://18.216.227.102:80",
+    "http://localhost:80"
+})
 public class ProductionController {
 
     private final ProductionService productionService;

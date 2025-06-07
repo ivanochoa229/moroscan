@@ -7,18 +7,19 @@ import axios from "axios";
 
 const History = () => {
   const navigate = useNavigate();
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://18.216.227.102:8080";
   const [productions, setProductions] = useState([]);
 
   const getAllProductions = async () => {
-    try {
-      const response = await axios.get("/production");
-      console.log("History Data:", response.data);
-      setProductions(response.data);
-    } catch (error) {
-      console.error("Error fetching history data:", error);
-    }
-  };
+  try {
+    const response = await axios.get(`${API_BASE_URL}/production`);
+    setProductions(response.data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+
 
   useEffect(() => {
     getAllProductions();
