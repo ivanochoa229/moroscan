@@ -20,7 +20,7 @@ const SimulatorForm = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true); // 🔄 Mostrar loader
-      const response = await axios.post("http://moro_backend:8080/production", {
+      const response = await axios.post("/production", {
         quantity_plots: data.quantity_plots,
       });
 
