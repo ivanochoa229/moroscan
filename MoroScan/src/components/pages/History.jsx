@@ -7,19 +7,37 @@ import axios from "axios";
 
 const History = () => {
   const navigate = useNavigate();
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ;
+  // La variable de entorno VITE_API_BASE_URL se inyecta aquí.
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [productions, setProductions] = useState([]);
 
   const getAllProductions = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/production`);
-    setProductions(response.data);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
+    try {
+      // --- IMPORTANTE: Añade este console.log para verificar la URL exacta ---
+      console.log("Intentando obtener datos de:", `${API_BASE_URL}/production`);
 
+      const response = await axios.get(`${API_BASE_URL}/production`);
+      setProductions(response.data);
+      console.log("Datos de producción recibidos:", response.data); // Opcional: Para ver los datos si la llamada es exitosa
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
 
+      // --- Detalles adicionales del error para una mejor depuración ---
+      if (error.response) {
+        // El servidor respondió con un estado fuera del rango 2xx
+        console.error("Respuesta de error del servidor:", error.response.data);
+        console.error("Estado del error del servidor:", error.response.status);
+        console.error("Headers de respuesta del servidor:", error.response.headers);
+      } else if (error.request) {
+        // La solicitud fue hecha pero no se recibió respuesta
+        console.error("No se recibió respuesta del servidor (la solicitud fue enviada):", error.request);
+      } else {
+        // Algo más ocurrió al configurar la solicitud que disparó un error
+        console.error("Error al configurar la solicitud:", error.message);
+      }
+      console.error("Configuración de la solicitud de Axios:", error.config);
+    }
+  };
 
   useEffect(() => {
     getAllProductions();
@@ -65,7 +83,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ;
                     <td>{production.date_simulation}</td>
                     <td>{production.quantity_plots}</td>
                     <td>
-                      {Number(production.expected_production).toFixed(2)} 
+                      {Number(production.expected_production).toFixed(2)}
                     </td>
                     <td>{Number(production.lost_production).toFixed(2)}</td>
                     <td>{Number(production.real_production).toFixed(2)}</td>
