@@ -12,7 +12,7 @@ const History = () => {
 
   const getAllProductions = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/production");
+      const response = await axios.get("http://moro_backend:8080/production");
       console.log("History Data:", response.data);
       setProductions(response.data);
     } catch (error) {

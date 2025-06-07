@@ -15,7 +15,7 @@ const Simulation = () => {
   const fetchSimulationData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/production/" + idSimulation
+        "http://moro_backend:8080/production/" + idSimulation
       );
       console.log("Simulation Data:", response.data);
       setSimulationData(response.data);
