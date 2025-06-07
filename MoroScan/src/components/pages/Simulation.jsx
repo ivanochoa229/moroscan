@@ -15,7 +15,7 @@ const Simulation = () => {
 
   const fetchSimulationData = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/production`+idSimulation);
+      const response = await axios.get(`${API_BASE_URL}/production/`+idSimulation);
       console.log("Simulation Data:", response.data);
       setSimulationData(response.data);
     } catch (error) {
