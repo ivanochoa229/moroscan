@@ -11,7 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const Simulation = () => {
   const { idSimulation } = useParams();
   const [simulationData, setSimulationData] = useState([]);
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://18.216.227.102:8080";
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ;
 
   const fetchSimulationData = async () => {
     try {

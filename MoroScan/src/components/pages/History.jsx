@@ -7,7 +7,7 @@ import axios from "axios";
 
 const History = () => {
   const navigate = useNavigate();
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://18.216.227.102:8080";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ;
   const [productions, setProductions] = useState([]);
 
   const getAllProductions = async () => {

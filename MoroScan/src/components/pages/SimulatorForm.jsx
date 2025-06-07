@@ -15,20 +15,24 @@ const SimulatorForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://18.216.227.102:8080";
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
  const onSubmit = async (data) => {
   try {
     setLoading(true);
-    const response = await axios.post(`${API_BASE_URL}/production`, {  // ✅ URL completa
+    const response = await axios.post(`${API_BASE_URL}/production`, {
       quantity_plots: data.quantity_plots
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
 
     const simulationId = response.data.id_production;
     setTimeout(() => navigate("/simulation/" + simulationId), 1200);
     
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error:", error.response?.data || error.message);
     setLoading(false);
   }
 };
