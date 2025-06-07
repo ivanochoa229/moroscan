@@ -68,6 +68,10 @@ const SimulatorForm = () => {
                       value: 1,
                       message: "Debe ingresar al menos 1 parcela",
                     },
+                    max: {
+                      value: 1000000,
+                      message: "No puede ingresar mas de 1 millon de parcelas",
+                    },
                   })}
                 />
 
